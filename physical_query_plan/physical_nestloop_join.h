@@ -33,6 +33,7 @@
 #include "../physical_query_plan/physical_operator.h"
 #include "../../Debug.h"
 #include "../../Executor/ExpanderTracker.h"
+
 // namespace claims {
 // namespace physical_query_plan {
 class PhysicalNestloopJoin : public PhysicalOperator {
@@ -50,13 +51,13 @@ class PhysicalNestloopJoin : public PhysicalOperator {
                    BlockStreamBase::BlockStreamTraverseIterator *bsti)
         : bsb_right_(bsb_right),
           blockstream_iterator_(bsti),
-          buffer_iterator_(0),
-          buffer_stream_iterator_(0) {}
+          buffer_iterator_(NULL),
+          buffer_stream_iterator_(NULL) {}
     RemainingBlock()
-        : bsb_right_(0),
-          blockstream_iterator_(0),
-          buffer_iterator_(0),
-          buffer_stream_iterator_(0) {}
+        : bsb_right_(NULL),
+          blockstream_iterator_(NULL),
+          buffer_iterator_(NULL),
+          buffer_stream_iterator_(NULL) {}
     RemainingBlock(const RemainingBlock &r) {
       bsb_right_ = r.bsb_right_;
       blockstream_iterator_ = r.blockstream_iterator_;
@@ -129,6 +130,7 @@ class PhysicalNestloopJoin : public PhysicalOperator {
     ar &boost::serialization::base_object<PhysicalOperator>(*this) & state_;
   }
 };
+
 //} /* namespace physical_query_plan */
 //} /* namespace claims */
 #endif /* PHYSICAL_QUERY_PLAN_PHYSICAL_NESTLOOP_JOIN_H__ */

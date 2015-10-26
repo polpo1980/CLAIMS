@@ -71,8 +71,6 @@ PhysicalNestloopJoin::State::State(BlockStreamIteratorBase *child_left,
 
 bool PhysicalNestloopJoin::Open(const PartitionOffset &partition_offset) {
   RegisterExpandedThreadToAllBarriers();
-  //	AtomicPushFreeHtBlockStream(BlockStreamBase::createBlock(state_.input_schema_left,state_.block_size_));
-  //	AtomicPushFreeBlockStream(BlockStreamBase::createBlock(state_.input_schema_right,state_.block_size_));
   unsigned long long int timer;
   bool winning_thread = false;
   if (TryEntryIntoSerializedSection(0)) {  // the first thread of all need to do
@@ -119,6 +117,19 @@ bool PhysicalNestloopJoin::Open(const PartitionOffset &partition_offset) {
   state_.child_right_->Open(partition_offset);
   return true;
 }
+
+/**
+ * @brief it describes the sequence of the nestloop join. As the intermediate
+ * result of the left child has been stored in the dynamic block buffer in the
+ * open function. in this next function, it get the intermediate result of the
+ * right child operator, one block after one block. Within each block, it gets
+ * each tuple in the block and joins with each tuple in the dynamic block buffer
+ * when traversing them.
+ * Method description :
+ * @param
+ * @ return
+ * @details   (additional)
+ */
 
 bool PhysicalNestloopJoin::Next(BlockStreamBase *block) {
   void *tuple_from_buffer_child;
@@ -188,7 +199,8 @@ bool PhysicalNestloopJoin::Close() {
  * right input schema
  * @param  target : the dynamic buffer to be created based on the given buffer
  * @param schema: the left or the right input schema
- * @return *@details   (additional)
+ * @return
+ * @details   (additional)
  * */
 
 bool PhysicalNestloopJoin::CreateBlockStream(BlockStreamBase *&target,
@@ -209,5 +221,6 @@ void PhysicalNestloopJoin::Print() {
   printf("------Join Right-------\n");
   state_.child_right_->Print();
 }
+
 //} /* namespace physical_query_plan */
 //} /* namespace claims  */
