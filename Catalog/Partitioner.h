@@ -295,7 +295,7 @@ private:
 	{
 		ar.register_type(static_cast<Column *> (NULL));
 
-		ar.register_type(static_cast<BoostHashFunctin *> (NULL));
+		ar.register_type(static_cast<BoostHashFunction *> (NULL));
 		ar.register_type(static_cast<GeneralModuloFunction *> (NULL));
 		ar.register_type(static_cast<ModuloHashFunction *> (NULL));
 		ar.register_type(static_cast<RoundRobinPartitionFunction *> (NULL));

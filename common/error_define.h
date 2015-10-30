@@ -21,7 +21,7 @@
  *  Created on: Aug 5, 2015
  *      Author: yukai
  *		 Email: yukai2014@gmail.com
- * 
+ *
  * Description:
  *
  */
@@ -31,9 +31,9 @@
 
 #include <stdlib.h>
 
-
 /*
- * have to add Error Message in error_no.h and error_no.cpp, if new error no is add
+ * have to add Error Message in error_no.h and error_no.cpp, if new error no is
+ * add
  */
 namespace claims {
 namespace common {
@@ -49,12 +49,12 @@ const int kFailure = EXIT_FAILURE;
 /* errorno for common  -1 ~ -1000 */
 const int kTypeError = -1;
 const int kNotInit = -2;
+const int EMemoryAllocationFailed = -3;
 
 /* errorno for SQL parser -1001 ~ -2000  */
 const int kNoTableFound = -1001;
 
 /* errorno for Loader -2001 ~ -3000  */
-
 
 /* errorno for codegen -3001 ~ -4000 */
 const int kTestError = -3001;
@@ -65,7 +65,6 @@ const int kUninitializedJoinPolicy = -4001;
 const int kGeneratePlanContextFailed = -4002;
 
 const int kGenerateDataflowFailed = -4003;
-
 
 /* errorno for physical_query_plan -5001 ~ -6000 */
 const int kGenerateSubPhyPlanFailed = -5001;
